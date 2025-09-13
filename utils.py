@@ -15,16 +15,6 @@ SUSTAINABILITY_COLS = [
     'Land_Use_Score', 'Nitrogen_Score', 'Water_Use_Score', 'GHG_Emissions_Score'
 ]
 
-# --- Load and prepare data ---
-df = pd.read_csv(CSV_PATH)
-
-# Ensure numeric
-for col in NUTRIENT_COLS + SUSTAINABILITY_COLS:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
-
-# Build scaler on nutrient space for similarity calculations
-scaler = StandardScaler().fit(df[NUTRIENT_COLS].values)
-
 def find_replacements(
     food_name: str,
     criteria: List[str],
@@ -43,6 +33,16 @@ def find_replacements(
     Returns:
         A dict with 'target' and 'recommendations' or 'error'.
     """
+    # --- Load and prepare data ---
+    df = pd.read_csv(CSV_PATH)
+
+    # Ensure numeric
+    for col in NUTRIENT_COLS + SUSTAINABILITY_COLS:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+
+    # Build scaler on nutrient space for similarity calculations
+    scaler = StandardScaler().fit(df[NUTRIENT_COLS].values)
+
     # 1. Locate target food
     target_rows = df[df['USDA_Food_Name'] == food_name]
     if target_rows.empty:
