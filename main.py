@@ -1,14 +1,21 @@
 from typing import Optional
-
 from fastapi import FastAPI
+from utils import get_best_alternative
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+    return {"message": "ello love"}
+    
+@app.get("/items/{food_item}")
+async def get_impact(
+    food_item: str,
+    co2: Optional[bool] = False,
+    land: Optional[bool] = False,
+    water: Optional[bool] = False,
+    fertilizer: Optional[bool] = False,
+):
+    alternatives = get_best_alternative(food_item, co2, land, water, fertilizer)
+    return alternatives
