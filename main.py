@@ -9,7 +9,7 @@ app = FastAPI()
 async def root():
     return {"message": "ello love"}
     
-@app.get("/items/{food_item}")
+@app.get("/items/")
 async def get_impact(
     food_item: str,
     co2: Optional[bool] = False,
