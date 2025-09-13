@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from typing import List, Dict
 
 # --- Configuration ---
-CSV_PATH = 'df_labeled_clustered.csv'
+CSV_PATH = 'df_labeled_cleaned.csv'
 
 # Nutrient and sustainability columns
 NUTRIENT_COLS = [
@@ -95,6 +95,10 @@ def find_replacements(
 
     # 9. Format results
     max_dist = best['nutrient_distance'].max()
+
+    # sort such that most similar is first
+    best = best.sort_values('nutrient_distance')
+
     recommendations = []
     for _, r in best.iterrows():
         similarity = max(0, (1 - r['nutrient_distance'] / max_dist) * 100)
