@@ -108,12 +108,4 @@ def find_replacements(
         }
         recommendations.append(rec)
 
-    return {
-        'target': {
-            'name': target['USDA_Food_Name'],
-            'cluster': int(cluster_id),
-            'nutrients': {nut: float(target[nut]) for nut in NUTRIENT_COLS},
-            'sustainability': {crit: float(target[crit]) for crit in valid}
-        },
-        'recommendations': recommendations
-    }
+    return recommendations

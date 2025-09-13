@@ -1,6 +1,6 @@
 from typing import Optional
 from fastapi import FastAPI
-from utils import get_best_alternative
+from utils import find_replacements
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -26,11 +26,16 @@ async def get_impact(
     water: Optional[bool] = False,
     fertilizer: Optional[bool] = False,
 ):
+    criteria = []
+    if co2:
+        criteria.append('GHG_Emissions_Score')
+    if land:
+        criteria.append('Land_Use_Score')
+    if water:
+        criteria.append('Water_Use_Score')
+    if fertilizer:
+        criteria.append('Nitrogen_Score')
 
-    alternatives = get_best_alternative(food_item, criteria={
-        'GHG_Emissions_Score': co2,
-        'Land_Use_Score': land,
-        'Water_Use_Score': water,
-        'Nitrogen_Score': fertilizer
-    })
+
+    alternatives = find_replacements(food_item, criteria)
     return alternatives
