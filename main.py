@@ -26,5 +26,11 @@ async def get_impact(
     water: Optional[bool] = False,
     fertilizer: Optional[bool] = False,
 ):
-    alternatives = get_best_alternative(food_item, co2, land, water, fertilizer)
+
+    alternatives = get_best_alternative(food_item, criteria={
+        'GHG_Emissions_Score': co2,
+        'Land_Use_Score': land,
+        'Water_Use_Score': water,
+        'Nitrogen_Score': fertilizer
+    })
     return alternatives
