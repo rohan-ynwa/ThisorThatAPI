@@ -26,6 +26,8 @@ async def get_impact(
     water: Optional[bool] = False,
     fertilizer: Optional[bool] = False,
 ):
+    
+    # this is a bit clunky lol, should prolly use a map but i dont got time
     criteria = []
     if co2:
         criteria.append('GHG_Emissions_Score')
@@ -35,6 +37,15 @@ async def get_impact(
         criteria.append('Water_Use_Score')
     if fertilizer:
         criteria.append('Nitrogen_Score')
+
+    if not criteria:
+        # set all to true if none specified
+        criteria = [
+            'GHG_Emissions_Score',
+            'Land_Use_Score',
+            'Water_Use_Score',
+            'Nitrogen_Score'
+        ]
 
 
     alternatives = find_replacements(food_item, criteria)

@@ -70,8 +70,6 @@ def find_replacements(
     # 5. Filter for better sustainability
     for crit in valid:
         candidates = candidates[candidates[crit] > target[crit]]
-    if candidates.empty:
-        return {'error': 'No better sustainable alternatives found in same cluster.'}
 
     # 6. Compute nutrient distance
     target_vec = scaler.transform([target[NUTRIENT_COLS].values])
