@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from typing import List, Dict
 
 # --- Configuration ---
-CSV_PATH = 'df_labeled.csv'
+CSV_PATH = 'df_labeled_clustered.csv'
 
 # Nutrient and sustainability columns
 NUTRIENT_COLS = [
