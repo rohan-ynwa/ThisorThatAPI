@@ -48,11 +48,11 @@ def find_replacements(
     if target_rows.empty:
         return {'error': f'Food "{food_name}" not found.'}
     target = target_rows.iloc[0]
-    cluster_id = target['cluster']
+    cluster_id = target['Cluster']
 
     # 2. Gather cluster members excluding target
     candidates = df[
-        (df['cluster'] == cluster_id) &
+        (df['Cluster'] == cluster_id) &
         (df.index != target.name)
     ].copy()
 
