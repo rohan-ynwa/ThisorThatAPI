@@ -1,9 +1,18 @@
 from typing import Optional
 from fastapi import FastAPI
 from utils import get_best_alternative
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# Add this block before your routes
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "https://thisorthatfood.netlify.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
